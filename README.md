@@ -3,8 +3,6 @@ Repositório com as atividades feitas na Disciplina de Projeto de Software da UF
 
 Membros do Grupo:
 
-Membros do Grupo:
-
 [José Solenir Lima Figuerêdo ](https://github.com/Solenir)
 
 [Owen Alves Lima](https://github.com/mr0wen)
