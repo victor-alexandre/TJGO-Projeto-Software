@@ -7,7 +7,7 @@ Membros do Grupo:
 
 [José Solenir Lima Figuerêdo ](https://github.com/Solenir)
 
-[Owen Alves Lima](https://github.com/owenlima)
+[Owen Alves Lima](https://github.com/mr0wen)
 
 [Renato Aparecido dos Santos Júnior](https://github.com/renatojunior0)
 
