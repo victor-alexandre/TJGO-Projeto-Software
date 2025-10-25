@@ -38,10 +38,17 @@ Links para os documentos e diagramas detalhados do projeto:
 
 * **Modelagem de Negócio:**
     * ![Project Model Canvas](imagens/CanvasTJGO.png)
+
 * **Engenharia de Requisitos:**
     * [Lista Detalhada de Requisitos (RF, RA, RNF)](Requisitos/README.md)
+
     * Casos de Uso 
         ![Casos de Uso](imagens/casos_de_uso.png)
+
+
+* **Projeto de Software:**
+    * Diagrama de Contexto - C4
+        [Casos de Uso](Artefato%201%20-%20Diagrama%20de%20Contexto%20(C4)/README.md)
 
 ---
 

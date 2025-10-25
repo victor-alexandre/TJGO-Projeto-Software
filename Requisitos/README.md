@@ -8,6 +8,7 @@
 
 Os requisitos listados abaixo detalham as funcionalidades (RFs), regras de arquitetura (RAs) e restrições não-funcionais (RNFs) necessárias para a construção desta solução.
 
+---
 
 ### RA01 - Autenticação e Perfis de Usuário
 
