@@ -37,10 +37,11 @@ Links para as seções principais deste `README.md`:
 Links para os documentos e diagramas detalhados do projeto:
 
 * **Modelagem de Negócio:**
-    * ![Project Model Canvas](imagens/CanvasTJGO.jpg)
+    * ![Project Model Canvas](imagens/CanvasTJGO.png)
 * **Engenharia de Requisitos:**
     * [Lista Detalhada de Requisitos (RF, RA, RNF)](Requisitos/README.md)
-    * ![Casos de Uso](imagens/casos_de_uso.png)
+    * Casos de Uso 
+        ![Casos de Uso](imagens/casos_de_uso.png)
 
 ---
 

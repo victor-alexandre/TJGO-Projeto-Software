@@ -1,8 +1,8 @@
 # Sistema de Gerenciamento de Demandas - Corregedoria TJGO
 
-*O contexto e a proposta de valor deste projeto estão visualmente resumidos no Project Model Canvas (CanvasTJGO.jpg) e detalhados abaixo.*
+*O contexto e a proposta de valor deste projeto estão visualmente resumidos no Project Model Canvas (CanvasTJGO.png) e detalhados abaixo.*
 
-![Project Model Canvas](../imagens/CanvasTJGO.jpg)
+![Project Model Canvas](../imagens/CanvasTJGO.png)
 
 ## Requisitos do Projeto
 
