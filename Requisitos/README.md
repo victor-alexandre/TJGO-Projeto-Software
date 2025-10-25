@@ -2,47 +2,11 @@
 
 *O contexto e a proposta de valor deste projeto estão visualmente resumidos no Project Model Canvas (CanvasTJGO.jpg) e detalhados abaixo.*
 
-## 1. Contexto
-
-A Corregedoria do Tribunal de Justiça do Estado de Goiás (TJGO) desempenha um papel essencial no acompanhamento, fiscalização e orientação das atividades administrativas e judiciais. Além de suas funções centrais, a Corregedoria gera e recebe diversas demandas internas relacionadas a sistemas e processos de Tecnologia da Informação (TI).
-
-Embora já existam sistemas judiciais para requisições específicas, eles não oferecem funcionalidades de gestão centralizada de demandas, semelhantes a plataformas de chamados corporativos.
-
-## 2. O Problema
-
-Atualmente, a equipe de TI da Corregedoria enfrenta um desafio operacional: não há um mecanismo integrado para controlar, priorizar e acompanhar o ciclo de vida das demandas de TI recebidas.
-
-Quando surgem solicitações de manutenção, melhorias ou incidentes, a atribuição das tarefas ocorre de forma manual e verbal, alocada diretamente pelo gerente de projeto aos membros da equipe.
-
-Esse processo informal gera uma série de lacunas ("gaps") operacionais:
-
-* Dificuldade em acompanhar o histórico das demandas.
-* Ausência de indicadores claros de desempenho (KPIs).
-* Falta de visibilidade sobre a carga de trabalho (workload) de cada colaborador.
-* Risco de esquecimento ou perda de demandas.
-* Dificuldade em priorizar os chamados conforme critérios objetivos de negócio.
-
-## 3. A Proposta de Solução
-
-Para solucionar este cenário, este projeto propõe a criação de um **Sistema de Gerenciamento de Demandas para a Corregedoria do TJGO**, funcionando como uma central de serviços (*Service Desk*) interna.
-
-O objetivo é que este sistema permita:
-
-* O registro estruturado de todas as solicitações de TI.
-* A atribuição automática ou semiautomática de tarefas aos responsáveis.
-* O acompanhamento em tempo real do status de cada chamado.
-* A definição de prazos, prioridades e SLAs.
-* A emissão de relatórios e dashboards de apoio à gestão.
-
-Com a implementação desta solução, a Corregedoria obterá maior eficiência operacional, transparência na distribuição das demandas, e um controle efetivo sobre os prazos e indicadores de desempenho da equipe de TI.
-
----
+[Project Model Canvas](imagens/CanvasTJGO.jpg) 
 
 ## Requisitos do Projeto
 
 Os requisitos listados abaixo detalham as funcionalidades (RFs), regras de arquitetura (RAs) e restrições não-funcionais (RNFs) necessárias para a construção desta solução.
-
-
 
 
 ### RA01 - Autenticação e Perfis de Usuário
