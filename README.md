@@ -1,12 +1,22 @@
-# TJGO-Projeto-Software
-Repositório com as atividades feitas na Disciplina de Projeto de Software da UFG em colab com o TJGO.
+# Sistema de Gerenciamento de Demandas (Service Desk)
+## Corregedoria do Tribunal de Justiça do Estado de Goiás (TJGO)
 
-Membros do Grupo:
+Projeto desenvolvido como atividade principal da disciplina de **Projeto de Software**, do curso de Pós-Graduação da **Universidade Federal de Goiás (UFG)**, em colaboração com o **Tribunal de Justiça do Estado de Goiás**.
 
-[José Solenir Lima Figuerêdo ](https://github.com/Solenir)
+O objetivo central deste repositório é aplicar o aprendizado obtido na disciplina para transformar uma lista de requisitos de negócio (originados do TJGO) em um projeto de software estruturado, documentado e pronto para o desenvolvimento.
 
-[Owen Alves Lima](https://github.com/mr0wen)
+---
 
-[Renato Aparecido dos Santos Júnior](https://github.com/renatojunior0)
+### Equipe do Projeto (Autores)
 
-[Victor Alexandre de Carvalho Coelho](https://github.com/victor-alexandre)
+* [José Solenir Lima Figuerêdo](https://github.com/Solenir)
+* [Owen Alves Lima](https://github.com/mr0wen)
+* [Renato Aparecido dos Santos Júnior](https://github.com/renatojunior0)
+* [Victor Alexandre de Carvalho Coelho](https://github.com/victor-alexandre)
+
+### Orientação
+
+* **Professor(a):** *Fábio Nogueira de Lucena*
+
+---
+
