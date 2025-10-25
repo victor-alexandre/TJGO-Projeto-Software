@@ -1,4 +1,4 @@
-# Sistema de Gerenciamento de Demandas (Service Desk)
+# Sistema de Gerenciamento de Demandas - Corregedoria TJGO
 ## Corregedoria do Tribunal de Justiça do Estado de Goiás (TJGO)
 
 Projeto desenvolvido como atividade principal da disciplina de **Projeto de Software**, do curso de Pós-Graduação da **Universidade Federal de Goiás (UFG)**, em colaboração com o **Tribunal de Justiça do Estado de Goiás**.
@@ -37,10 +37,10 @@ Links para as seções principais deste `README.md`:
 Links para os documentos e diagramas detalhados do projeto:
 
 * **Modelagem de Negócio:**
-    * [Project Model Canvas](imagens/CanvasTJGO.jpg) 
+    * ![Project Model Canvas](imagens/CanvasTJGO.jpg)
 * **Engenharia de Requisitos:**
     * [Lista Detalhada de Requisitos (RF, RA, RNF)](Requisitos/README.md)
-    * [Casos de Uso](imagens/casos_de_uso.png)
+    * ![Casos de Uso](imagens/casos_de_uso.png)
 
 ---
 

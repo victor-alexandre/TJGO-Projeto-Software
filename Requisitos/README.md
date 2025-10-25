@@ -2,7 +2,7 @@
 
 *O contexto e a proposta de valor deste projeto estão visualmente resumidos no Project Model Canvas (CanvasTJGO.jpg) e detalhados abaixo.*
 
-[Project Model Canvas](imagens/CanvasTJGO.jpg) 
+![Project Model Canvas](../imagens/CanvasTJGO.jpg)
 
 ## Requisitos do Projeto
 
