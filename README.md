@@ -48,7 +48,7 @@ Links para os documentos e diagramas detalhados do projeto:
 
 * **Projeto de Software:**
     * Diagrama de Contexto - C4
-        [Casos de Uso](Artefato%201%20-%20Diagrama%20de%20Contexto%20(C4)/README.md)
+        ![C4 PlantUML](imagens/DiagramaDeContexto_C4.png)
 
 ---
 
