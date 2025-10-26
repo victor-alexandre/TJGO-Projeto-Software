@@ -32,7 +32,8 @@ Esta seção serve como índice de navegação para os principais artefatos e do
 
 ### 2. Artefatos de Projeto (links externos)
 #### 🧩 Modelagem de Negócio
-- ![Project Model Canvas](https://raw.githubusercontent.com/victor-alexandre/TJGO-Projeto-Software/main/imagens/CanvasTJGO.png)
+- Canvas:
+![Project Model Canvas](https://raw.githubusercontent.com/victor-alexandre/TJGO-Projeto-Software/main/imagens/CanvasTJGO.png)
 
 #### 📝 Engenharia de Requisitos
 - [Lista Detalhada de Requisitos (RF, RA, RNF)](Requisitos/README.md)  
@@ -41,7 +42,8 @@ Esta seção serve como índice de navegação para os principais artefatos e do
 
 #### 🧠 Projeto de Software
 - Diagrama de Contexto (Modelo C4):  
-  ![C4 PlantUML](https://raw.githubusercontent.com/victor-alexandre/TJGO-Projeto-Software/main/imagens/DiagramaDeContexto_C4.png)
+  [![Diagrama de Contexto - C4](https://raw.githubusercontent.com/victor-alexandre/TJGO-Projeto-Software/main/imagens/DiagramaDeContexto_C4.png)](imagens/DiagramaDeContexto_C4.png)
+
 
 ---
 
