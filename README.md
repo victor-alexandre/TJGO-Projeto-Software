@@ -37,7 +37,7 @@ Esta seção serve como índice de navegação para os principais artefatos e do
 #### 📝 Engenharia de Requisitos
 - [Lista Detalhada de Requisitos (RF, RA, RNF)](Requisitos/README.md)  
 - Casos de Uso:  
-  ![Casos de Uso](https://raw.githubusercontent.com/victor-alexandre/TJGO-Projeto-Software/main/imagens/casos_de_uso.png)
+  ![Casos de Uso](https://raw.githubusercontent.com/victor-alexandre/TJGO-Projeto-Software/main/imagens/CasosDeUso.png)
 
 #### 🧠 Projeto de Software
 - Diagrama de Contexto (Modelo C4):  
