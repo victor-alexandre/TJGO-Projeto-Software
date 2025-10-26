@@ -17,7 +17,7 @@ O objetivo deste repositório é aplicar os conhecimentos adquiridos na discipli
 | Victor Alexandre de Carvalho Coelho | [@victor-alexandre](https://github.com/victor-alexandre) |
 
 ### Orientação
-**Professor:** [Fábio Nogueira de Lucena](https://www.inf.ufg.br/)
+**Professor:** [Fábio Nogueira de Lucena](https://ww2.inf.ufg.br/~fabio/)
 
 ---
 
