@@ -1,7 +1,7 @@
 # 🧭 Sistema de Gerenciamento de Demandas — Corregedoria TJGO  
 ### Corregedoria do Tribunal de Justiça do Estado de Goiás (TJGO)
 
-Projeto desenvolvido como atividade principal da disciplina **Projeto de Software**, do curso de Pós-Graduação da **Universidade Federal de Goiás (UFG)**, em parceria com o **Tribunal de Justiça do Estado de Goiás (TJGO)**.
+Projeto desenvolvido como atividade principal da disciplina **Projeto e Design de Software**, do curso de Pós-Graduação da **Universidade Federal de Goiás (UFG)**, em parceria com o **Tribunal de Justiça do Estado de Goiás (TJGO)**.
 
 O objetivo deste repositório é aplicar os conhecimentos adquiridos na disciplina para **transformar uma lista de requisitos de negócio** — elaborada na disciplina de **Engenharia de Requisitos** — em um **projeto de software completo, documentado e pronto para desenvolvimento**.
 
