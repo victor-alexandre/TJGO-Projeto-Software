@@ -155,3 +155,51 @@ Os requisitos listados abaixo detalham as funcionalidades (RFs), regras de arqui
    **Pós-condição:** Corregedor tem visão consolidada da performance da equipe.
    **Prioridade:** Baixa." DEV (green)
 
+
+---
+## Requisitos Não Funcionais (RNF)
+
+
+---
+### RNF01: Desempenho
+O sistema deve apresentar alta performance para garantir a fluidez do atendimento e da gestão.
+
+- **Tempo de Resposta:** O tempo de resposta para operações comuns (abertura de chamados, visualização de *dashboards*, listagem/filtragem de demandas) não deve exceder **3 segundos** em 95% das requisições.
+- **Carga Concorrente:** O sistema deve ser capaz de suportar [X] usuários concorrentes sem degradação perceptível da performance.
+
+### RNF02: Segurança
+O sistema deve garantir a confidencialidade, integridade e disponibilidade das informações das demandas.
+
+- **Autenticação:** As senhas dos usuários devem ser armazenadas utilizando algoritmos de *hash* robustos (ex: bcrypt ou Argon2).
+- **Controle de Sessão:** O sistema deve implementar um gerenciamento seguro de sessões, incluindo *timeouts* automáticos por inatividade.
+- **Controle de Acesso (RBAC):** O sistema deve implementar o Controle de Acesso Baseado em Papéis, garantindo perfis distintos (Servidor, Técnico, Gestor, Corregedoria) com permissões claras.
+
+### RNF03: Usabilidade
+A interface deve ser projetada para minimizar a curva de aprendizado e permitir o uso eficiente em diferentes contextos.
+
+- **Intuitividade:** O design deve ser limpo e seguir padrões de UI/UX consagrados, facilitando o registro e gerenciamento de demandas.
+- **Responsividade:** A interface deve ser adaptável (responsiva) para operar de forma eficaz em *desktops* e dispositivos móveis.
+
+### RNF04: Disponibilidade
+O sistema é crítico para a operação da área de TI e deve estar acessível durante o horário de expediente.
+
+- **Uptime:** O sistema deve garantir uma disponibilidade de **99,5%** durante o horário comercial (8h às 18h, seg-sex), excluindo janelas de manutenção programadas.
+
+### RNF05: Auditabilidade e Rastreabilidade
+Dada a necessidade de "transparência" e "controle" (contexto da Corregedoria), o rastreamento de ações é fundamental.
+
+- **Logs de Auditoria:** Todas as ações críticas (criação, atribuição, alteração de status, fechamento de demanda) devem ser registradas em *logs*.
+- **Histórico da Demanda:** Deve ser possível rastrear o histórico completo de uma demanda, identificando quem realizou cada alteração e quando.
+
+### RNF06: Compatibilidade e Integração
+O sistema deve se comunicar com outras ferramentas essenciais e ser acessível pelos usuários.
+
+- **Compatibilidade de Navegadores:** A aplicação deve ser totalmente funcional nas versões mais recentes do *Google Chrome, Firefox* e *Microsoft Edge*.
+- **Integração com E-mail (SMTP):** O sistema deve ser capaz de enviar notificações automáticas por e-mail (ex: novo chamado, violação de SLA, confirmação de abertura).
+
+### RNF07: Manutenibilidade
+Para garantir o "suporte estratégico" e a longevidade do projeto, o sistema deve ser fácil de manter.
+
+- **Qualidade de Código:** O código-fonte deve ser limpo, modular, seguir padrões de *design* e possuir documentação técnica adequada.
+- **Testabilidade:** O sistema deve ser projetado para facilitar testes automatizados (unitários e de integração).
+
