@@ -13,21 +13,25 @@ Person(corregedor, "Corregedor", "Autoridade máxima que visualiza indicadores e
 
 ' ===== BOUNDARY DO SISTEMA =====
 System_Boundary(sgd, "Sistema de Gerenciamento de Demandas (SGD)") {
-    
+
     ' Container 1: Frontend
     Container(spa, "Single-Page Application", "React 18 + TypeScript + Material-UI", "Interface responsiva que permite registro, acompanhamento e gestão de chamados. Suporta desktop e mobile.")
-    
+
     ' Container 2: Backend API
     Container(api, "API REST", "Node.js 20 + Express + TypeScript", "Processa regras de negócio (RFs), gerencia chamados, atribuições automáticas, cálculo de SLAs e orquestra notificações.")
-    
+
     ' Container 3: Banco de Dados
     ContainerDb(db, "Database", "PostgreSQL 15", "Armazena chamados, usuários, técnicos, históricos de auditoria (RNF05), SLAs e métricas de desempenho.")
-    
+
     ' Container 4: Scheduler
     Container(scheduler, "Serviço de Agendamento", "Node.js + node-cron", "Executa tarefas periódicas: verificação de SLAs próximos do vencimento, geração de relatórios automáticos e alertas de chamados atrasados.")
-    
+
     ' Container 5: Notification Service
     Container(notification, "Serviço de Notificações", "RabbitMQ 3.12 (Message Broker)", "Gerencia fila de notificações assíncronas. Garante entrega confiável de e-mails com retry automático e Dead Letter Queue.")
+
+    ' Container 6: Blob Storage
+    Container(blob_storage, "Serviço de Armazenamento", "MinIO / S3-Compatible", "Armazena anexos dos chamados (imagens, logs, PDFs), conforme RF01. Garante que binários não fiquem na DB.")
+
 }
 
 ' ===== SISTEMAS EXTERNOS =====
@@ -53,19 +57,27 @@ Rel(notification, email_system, "Consome fila e envia e-mails de notificação",
 ' ===== RELACIONAMENTOS: SISTEMA → EXTERNOS =====
 Rel(api, auth_system, "Valida credenciais e consulta perfis de usuário (SSO)", "LDAP v3 / LDAPS")
 
+' A API gerencia os metadados e autoriza o acesso aos anexos
+Rel(api, blob_storage, "Autoriza e gerencia metadados dos anexos", "HTTPS/S3 API")
+
+' O usuário (SPA) pode fazer o upload/download diretamente para o storage
+' após ser autorizado pela API (usando URLs pré-assinadas)
+Rel(spa, blob_storage, "Realiza upload/download de anexos", "HTTPS")
+
 ' ===== NOTAS ARQUITETURAIS =====
 note right of notification
-  **Padrão:** Publish-Subscribe
-  **Retry:** 3 tentativas com backoff exponencial
-  **DLQ:** Mensagens com falha permanente
-  **TTL:** 24 horas
+**Padrão:** Publish-Subscribe
+**Retry:** 3 tentativas com backoff exponencial
+**DLQ:** Mensagens com falha permanente
+**TTL:** 24 horas
 end note
 
 note right of scheduler
-  **Tarefas:**
-  - Verificação de SLA (a cada 15 min)
-  - Relatórios diários (00:00)
-  - Alertas de atraso (a cada hora)
-end note
+**Tarefas:**
+
+- Verificação de SLA (a cada 15 min)
+- Relatórios diários (00:00)
+- Alertas de atraso (a cada hora)
+  end note
 
 @enduml
