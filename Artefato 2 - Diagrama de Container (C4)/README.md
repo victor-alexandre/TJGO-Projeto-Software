@@ -3,81 +3,82 @@
 
 LAYOUT_WITH_LEGEND()
 
-title Diagrama de Container C4 (Nível 2) \n Sistema de Gerenciamento de Demandas - TJGO
+title Diagrama de Container C4 (Nível 2) Otimizado \n Sistema de Gerenciamento de Demandas (SGD) - TJGO
 
 ' ===== ATORES (PESSOAS) =====
-Person(servidor, "Servidor do Tribunal", "Funcionário que registra e acompanha chamados de TI")
-Person(tecnico, "Técnico de TI", "Profissional que atende e resolve demandas técnicas")
-Person(gestor_ti, "Gestor de TI", "Gerente que define prioridades, aloca recursos e monitora equipe")
-Person(corregedor, "Corregedor", "Autoridade máxima que visualiza indicadores estratégicos (KPIs)")
+Person(servidor, "Servidor do Tribunal", "Funcionário que registra e acompanha chamados de TI (Usuário Final)")
+Person(tecnico, "Técnico de TI", "Profissional que atende, diagnostica e resolve demandas técnicas (Tier 1/2)")
+Person(gestor_ti, "Gestor de TI", "Gerente que define prioridades, aloca recursos e monitora performance da equipe")
+Person(corregedor, "Corregedor", "Autoridade que visualiza KPIs estratégicos de tempo de atendimento (TMA/TME)")
 
 ' ===== BOUNDARY DO SISTEMA =====
-System_Boundary(sgd, "Sistema de Gerenciamento de Demandas (SGD)") {
+System_Boundary(sgd, "Sistema de Gerenciamento de Demandas (SGD) - Plataforma K8s/Docker") {
 
     ' Container 1: Frontend
-    Container(spa, "Single-Page Application", "React 18 + TypeScript + Material-UI", "Interface responsiva que permite registro, acompanhamento e gestão de chamados. Suporta desktop e mobile.")
+    Container(spa, "Aplicação Web Responsiva (SPA)", "React 18 + TypeScript + Material-UI", "Interface para registro, acompanhamento e gestão de chamados. Servida via Nginx/CDN.")
 
-    ' Container 2: Backend API
-    Container(api, "API REST", "Node.js 20 + Express + TypeScript", "Processa regras de negócio (RFs), gerencia chamados, atribuições automáticas, cálculo de SLAs e orquestra notificações.")
+    ' Container 2: Backend API (Core do Negócio)
+    Container(api, "API Gateway/REST (Core)", "Node.js 20 + Express + TypeScript", "Valida requisições, implementa regras de negócio (criação/atualização de chamados) e calcula SLAs.")
 
     ' Container 3: Banco de Dados
-    ContainerDb(db, "Database", "PostgreSQL 15", "Armazena chamados, usuários, técnicos, históricos de auditoria (RNF05), SLAs e métricas de desempenho.")
+    ContainerDb(db, "Banco de Dados Transacional", "PostgreSQL 15 (Managed Service)", "Armazena dados estruturados: chamados, usuários, históricos de auditoria (RNF05) e metadados dos anexos.")
 
-    ' Container 4: Scheduler
-    Container(scheduler, "Serviço de Agendamento", "Node.js + node-cron", "Executa tarefas periódicas: verificação de SLAs próximos do vencimento, geração de relatórios automáticos e alertas de chamados atrasados.")
+    ' Container 4: Scheduler (Serviço Cron)
+    Container(scheduler, "Serviço de Agendamento (Job Runner)", "Node.js + node-cron/Agenda", "Executa tarefas críticas: **Escalonamento** de SLAs próximos do vencimento e geração programada de relatórios (BI).")
 
-    ' Container 5: Notification Service
-    Container(notification, "Serviço de Notificações", "RabbitMQ 3.12 (Message Broker)", "Gerencia fila de notificações assíncronas. Garante entrega confiável de e-mails com retry automático e Dead Letter Queue.")
+    ' Container 5: Notification Service (Microsserviço Assíncrono)
+    Container(notification, "Serviço de Processamento de Notificações", "Node.js Consumer + RabbitMQ Client", "Consome a fila, formata o conteúdo dos e-mails (templates) e os envia. Garante Retry e DLQ.")
 
-    ' Container 6: Blob Storage
-    Container(blob_storage, "Serviço de Armazenamento", "MinIO / S3-Compatible", "Armazena anexos dos chamados (imagens, logs, PDFs), conforme RF01. Garante que binários não fiquem na DB.")
+    ' Container 6: Message Broker
+    ContainerQueue(broker, "Fila de Mensagens (Message Broker)", "RabbitMQ 3.12 (Cluster)", "Ponto central para desacoplamento. Armazena eventos (Payloads) antes que sejam processados de forma assíncrona pelo Notification Service.")
+
+    ' Container 7: File Storage (Armazenamento de Binários)
+    Container(file_storage, "Armazenamento Persistente de Arquivos", "Volume NFS Compartilhado / PVC K8s", "Armazena exclusivamente os binários dos anexos (imagens, logs, PDFs). Gerenciado por sistema de arquivos.")
 
 }
 
 ' ===== SISTEMAS EXTERNOS =====
-System_Ext(auth_system, "Sistema de Autenticação", "Active Directory / LDAP corporativo TJGO. Gerencia identidades, credenciais e perfis de acesso.")
-System_Ext(email_system, "Sistema de E-mail", "Servidor SMTP corporativo (Exchange). Envia notificações de chamados, alertas de SLA e relatórios.")
+System_Ext(auth_system, "Sistema de Autenticação Central", "Active Directory / LDAP corporativo TJGO", "Fornece autenticação (SSO) e autorização (perfis de acesso).")
+System_Ext(email_system, "Servidor de E-mail Corporativo", "Servidor SMTP (Exchange)", "Ponto de saída final (relé) para o envio de e-mails para os usuários.")
 
 ' ===== RELACIONAMENTOS: ATORES → SISTEMA =====
-Rel(servidor, spa, "Registra chamados e acompanha status", "HTTPS")
-Rel(tecnico, spa, "Atende chamados, atualiza progresso e resolve demandas", "HTTPS")
-Rel(gestor_ti, spa, "Gerencia equipe, define prioridades e visualiza relatórios", "HTTPS")
-Rel(corregedor, spa, "Visualiza dashboards estratégicos e indicadores de desempenho", "HTTPS")
+Rel(servidor, spa, "Registra/Acompanha chamados", "HTTPS")
+Rel(tecnico, spa, "Atende/Resolve demandas", "HTTPS")
+Rel(gestor_ti, spa, "Gerencia filas/Monitora equipe", "HTTPS")
+Rel(corregedor, spa, "Visualiza Dashboards Estratégicos", "HTTPS")
 
-' ===== RELACIONAMENTOS: CONTAINERS INTERNOS =====
-Rel(spa, api, "Faz requisições REST (consulta, cria, atualiza chamados)", "HTTPS/JSON")
-Rel(api, db, "Lê e escreve dados de chamados, usuários e históricos", "TCP/SQL (Prisma ORM)")
-Rel(api, notification, "Publica eventos de notificação (chamado criado, atribuído, SLA)", "AMQP 0-9-1")
+' ===== RELACIONAMENTOS: CONTAINERS INTERNOS (Fluxo de Dados Otimizado) =====
+Rel(spa, api, "Requisições CRUD de chamados", "HTTPS/JSON")
+Rel(api, db, "Consultas e Transações de Dados", "TCP/SQL (Prisma ORM)")
 
-Rel(scheduler, db, "Consulta chamados com SLA próximo do vencimento", "TCP/SQL (Prisma ORM)")
-Rel(scheduler, notification, "Agenda notificações periódicas (relatórios, alertas)", "AMQP 0-9-1")
+' --- Fluxo de Notificações (API publica, Broker armazena, Notification consome) ---
+Rel(api, broker, "Publica eventos assíncronos (chamado criado, SLA expirando)", "AMQP 0-9-1")
+Rel(scheduler, broker, "Publica eventos de alerta/relatório (SLA vencido, relatórios diários)", "AMQP 0-9-1")
+Rel(notification, broker, "Consome mensagens da fila (eventos)", "AMQP 0-9-1")
+Rel(notification, email_system, "Envia e-mails formatados", "SMTP/TLS")
 
-Rel(notification, email_system, "Consome fila e envia e-mails de notificação", "SMTP/TLS")
+' --- Fluxo de Arquivos (API como Proxy Único e Ponto de Autorização) ---
+Rel(api, file_storage, "Armazena/Recupera arquivos binários via path", "NFS / Volume Protocol")
+Rel(spa, api, "Upload/Download de anexos", "HTTPS/Multipart-Form")
 
-' ===== RELACIONAMENTOS: SISTEMA → EXTERNOS =====
-Rel(api, auth_system, "Valida credenciais e consulta perfis de usuário (SSO)", "LDAP v3 / LDAPS")
+' --- Relacionamentos de Suporte/Configuração ---
+Rel(scheduler, db, "Consulta dados para verificar SLAs", "TCP/SQL (Prisma ORM)")
+Rel(api, auth_system, "Valida token e consulta perfis de usuário (SSO)", "LDAP v3 / LDAPS")
 
-' A API gerencia os metadados e autoriza o acesso aos anexos
-Rel(api, blob_storage, "Autoriza e gerencia metadados dos anexos", "HTTPS/S3 API")
-
-' O usuário (SPA) pode fazer o upload/download diretamente para o storage
-' após ser autorizado pela API (usando URLs pré-assinadas)
-Rel(spa, blob_storage, "Realiza upload/download de anexos", "HTTPS")
-
-' ===== NOTAS ARQUITETURAIS =====
-note right of notification
-**Padrão:** Publish-Subscribe
-**Retry:** 3 tentativas com backoff exponencial
-**DLQ:** Mensagens com falha permanente
-**TTL:** 24 horas
+' ===== NOTAS ARQUITETURAIS PARA MAIOR CLAREZA =====
+note right of broker
+**Separação:**
+O Broker (RabbitMQ) agora é um contêiner explícito, separando a **Mensageria** do **Processamento** (Notification Service).
 end note
 
-note right of scheduler
-**Tarefas:**
+note right of file_storage
+**Anexos:**
+Max. 10MB/arquivo.
+A API gerencia o **caminho** no DB (metadado) e o **acesso físico** ao volume.
+end note
 
-- Verificação de SLA (a cada 15 min)
-- Relatórios diários (00:00)
-- Alertas de atraso (a cada hora)
-  end note
-
+note top of api
+**Design:**
+Pode ser futuramente subdividido em microsserviços por domínio (Ex: Chamados, Usuários, SLAs).
+end note
 @enduml
