@@ -46,7 +46,7 @@ Esta seção serve como índice de navegação para os principais artefatos e do
   [![Diagrama de Contexto - C4](https://raw.githubusercontent.com/victor-alexandre/TJGO-Projeto-Software/main/imagens/DiagramaDeContexto_C4.png)](imagens/DiagramaDeContexto_C4.png)
 
 - Diagrama de Container (Modelo C4):  
-  [![Diagrama de Container - C4](https://raw.githubusercontent.com/victor-alexandre/TJGO-Projeto-Software/main/imagens/DiagramaDeContainer_C4.png)](imagens/DiagramaDeContainer_melhorado_C4.png)
+  [![Diagrama de Container - C4](https://raw.githubusercontent.com/victor-alexandre/TJGO-Projeto-Software/main/imagens/DiagramaDeContainer_melhorado_C4.png)](imagens/DiagramaDeContainer_melhorado_C4.png)
 
 ---
 
