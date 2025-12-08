@@ -6,7 +6,7 @@
 
 ## Requisitos do Projeto
 
-Os requisitos listados abaixo detalham as funcionalidades (RFs), regras de arquitetura (RAs) e restrições não-funcionais (RNFs) necessárias para a construção desta solução.
+Os requisitos listados abaixo detalham as funcionalidades (RFs, requisitos funcionais e RAs, requisitos auxiliares) e restrições não-funcionais (RNFs) necessárias para a construção desta solução.
 
 ---
 
