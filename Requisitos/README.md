@@ -195,7 +195,7 @@ Dada a necessidade de "transparência" e "controle" (contexto da Corregedoria), 
 O sistema deve se comunicar com outras ferramentas essenciais e ser acessível pelos usuários.
 
 - **Compatibilidade de Navegadores:** A aplicação deve ser totalmente funcional nas versões mais recentes do *Google Chrome, Firefox* e *Microsoft Edge*.
-- **Integração com E-mail (SMTP):** O sistema deve ser capaz de enviar notificações automáticas por e-mail (ex: novo chamado, violação de SLA, confirmação de abertura).
+- **Integração com E-mail (SMTP):** O envio de e-mails deve usar o protocolo SMTP corporativo.
 
 ### RNF07: Manutenibilidade
 Para garantir o "suporte estratégico" e a longevidade do projeto, o sistema deve ser fácil de manter.
