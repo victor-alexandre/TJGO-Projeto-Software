@@ -49,6 +49,9 @@ Container_Boundary(api, "API Gateway / Core Application") {
         Component(i_notifier, "INotifierPort", "Interface", "Contrato para enviar notificações.")
         Component(i_storage, "IStoragePort", "Interface", "Contrato para salvar arquivos.")
         Component(i_audit, "IAuditRepository", "Interface", "Contrato para logs de auditoria.")
+        
+        ' --- Interface para Autenticação ---
+        Component(i_auth_provider, "IAuthProvider", "Interface", "Contrato para validar credenciais externas.")
     }
 
     ' ============================================================
@@ -74,15 +77,15 @@ Container_Boundary(api, "API Gateway / Core Application") {
     Boundary(infra_layer, "Camada de Infraestrutura (Adapters)") {
 
         ' Implementações de Repositórios (DB)
-        Component(repo_ticket_impl, "Ticket Repo SQL", "Prisma", "Impl ITicketRepository.")
-        Component(repo_staff_impl, "Staff Repo SQL", "Prisma", "Impl IStaffRepository.")
-        Component(repo_audit_impl, "Audit Repo SQL", "Prisma", "Impl IAuditRepository.")
+            Component(repo_ticket_impl, "Ticket Repo SQL", "Prisma", "Impl ITicketRepository (Persiste e busca chamados no banco).")
+            Component(repo_staff_impl, "Staff Repo SQL", "Prisma", "Impl IStaffRepository (Gerencia dados cadastrais dos técnicos).")
+            Component(repo_audit_impl, "Audit Repo SQL", "Prisma", "Impl IAuditRepository (Registra logs de ações críticas no banco).")
 
-        ' Implementações de Adaptadores Externos
-        Component(rmq_adapter, "RabbitMQ Adapter", "AMQP Client", "Impl INotifierPort (Publica Eventos).")
-        Component(s3_adapter, "Disk/S3 Adapter", "File Driver", "Impl IStoragePort (Grava bytes).")
-        Component(ldap_adapter, "LDAP Adapter", "LDAP Client", "Conecta no AD para validar credenciais.")
-    }
+            ' Implementações de Adaptadores Externos
+            Component(rmq_adapter, "RabbitMQ Adapter", "AMQP Client", "Impl INotifierPort (Publica eventos assíncronos na fila).")
+            Component(s3_adapter, "Disk/S3 Adapter", "File Driver", "Impl IStoragePort (Gerencia upload/download de anexos em disco).")
+            Component(ldap_adapter, "LDAP Adapter", "LDAP Client", "Impl IAuthProvider (Conecta no AD para validar credenciais).")
+        }
 
 }
 
@@ -116,6 +119,7 @@ Rel(ticket_uc, i_audit, "Usa")
 Rel(ticket_uc, i_storage, "Usa")
 Rel(staff_uc, i_repo_staff, "Usa")
 Rel(auth_uc, i_audit, "Usa")
+Rel(auth_uc, i_auth_provider, "Usa")
 
 ' 4. Infraestrutura -> Portas (Implementação / Herança)
 Rel_Up(repo_ticket_impl, i_repo_ticket, "Implementa")
@@ -123,6 +127,7 @@ Rel_Up(repo_staff_impl, i_repo_staff, "Implementa")
 Rel_Up(rmq_adapter, i_notifier, "Implementa")
 Rel_Up(s3_adapter, i_storage, "Implementa")
 Rel_Up(repo_audit_impl, i_audit, "Implementa")
+Rel_Up(ldap_adapter, i_auth_provider, "Implementa")
 
 ' 5. Infraestrutura -> Mundo Externo
 Rel(repo_ticket_impl, db, "SQL")
@@ -132,8 +137,5 @@ Rel(repo_audit_impl, db, "Insert")
 Rel(rmq_adapter, broker, "Publish")
 Rel(s3_adapter, filesystem, "I/O")
 Rel(ldap_adapter, auth_sys, "LDAP Search")
-
-' Conexão direta do Auth UseCase com adaptador (simplificação comum)
-Rel(auth_uc, ldap_adapter, "Valida Credenciais")
 
 @enduml
