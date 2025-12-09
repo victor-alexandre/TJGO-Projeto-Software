@@ -19,26 +19,29 @@ Container_Boundary(infra_cron, "Agendador (Driver)") {
 }
 
 ' ============================================================
-' 2. CAMADA DE JOBS (Entry Points)
+' 2. CAMADA DE APLICAÇÃO (Jobs & Use Cases)
 ' ============================================================
-Container_Boundary(jobs, "Camada de Jobs (Tarefas)") {
+' Jobs SÃO a aplicação/casos de uso deste serviço.
+Container_Boundary(app_layer, "Camada de Aplicação (Jobs & Use Cases)") {
+    
+    ' Jobs (Mantidos textualmente iguais)
     Component(sla_job, "SLA Monitor Job", "Task", "Executa a cada 5 min.\nBusca chamados prestes a vencer ou vencidos.")
     Component(report_job, "Daily Report Job", "Task", "Executa à 00:00.\nGera consolidação estatística do dia anterior.")
     Component(cleanup_job, "Cleanup Job", "Task", "Executa semanalmente.\nLimpeza de logs temporários ou dados obsoletos.")
+
+    ' Interfaces (Movidas do Domínio - Hexagonal)
+    Component(i_repo_ticket, "ITicketRepository", "Interface", "Leitura de chamados abertos.")
+    Component(i_event_pub, "IEventPublisher", "Interface", "Contrato para notificar o sistema.")
 }
 
 ' ============================================================
 ' 3. CAMADA DE DOMÍNIO (Service Layer)
 ' ============================================================
-Container_Boundary(domain, "Camada de Domínio (Lógica)") {
+Container_Boundary(domain, "Camada de Domínio (Lógica Pura)") {
     
-    ' Services
+    ' Services (Isolados de interfaces de banco)
     Component(sla_checker, "SLA Checker Service", "Domain Service", "Aplica regras para identificar violação de SLA (considera feriados/calendário).")
     Component(report_builder, "Report Builder Service", "Domain Service", "Agrega dados brutos e calcula KPIs (TMA/TME).")
-    
-    ' Interfaces (Portas)
-    Component(i_repo_ticket, "ITicketRepository", "Interface", "Leitura de chamados abertos.")
-    Component(i_event_pub, "IEventPublisher", "Interface", "Contrato para notificar o sistema.")
 }
 
 ' ============================================================
@@ -58,17 +61,17 @@ Rel(cron_engine, sla_job, "Dispara (*/5 * * * *)")
 Rel(cron_engine, report_job, "Dispara (0 0 * * *)")
 Rel(cron_engine, cleanup_job, "Dispara (Weekly)")
 
-' 2. Job orquestra o Serviço
+' 2. Aplicação -> Domínio (Orquestra a regra)
 Rel(sla_job, sla_checker, "Invoca Verificação")
 Rel(report_job, report_builder, "Invoca Geração")
 
-' 3. Serviço usa Portas
-Rel(sla_checker, i_repo_ticket, "Busca Chamados Pendentes")
-Rel(sla_checker, i_event_pub, "Publica 'SLA_EXPIRED'")
-Rel(report_builder, i_repo_ticket, "Lê dados históricos")
-Rel(report_builder, i_event_pub, "Publica 'REPORT_READY'")
+' 3. Aplicação -> Portas (Usa Interfaces)
+Rel(sla_job, i_repo_ticket, "Usa")
+Rel(sla_job, i_event_pub, "Usa")
+Rel(report_job, i_repo_ticket, "Usa")
+Rel(report_job, i_event_pub, "Usa")
 
-' 4. Implementação das Interfaces
+' 4. Infraestrutura -> Portas (Implementa Interfaces)
 Rel_Up(repo_ticket_impl, i_repo_ticket, "Impl")
 Rel_Up(rmq_producer, i_event_pub, "Impl")
 
